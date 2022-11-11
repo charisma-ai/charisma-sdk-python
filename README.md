@@ -36,4 +36,4 @@ playthrough.reply({"conversationId": conversation_id, "text": "This is my messag
 
 ## Questions?
 
-Get in touch with us at ben@charisma.ai and we'll be happy to help you out!
+Get in touch with us at hello@charisma.ai and we'll be happy to help you out!
