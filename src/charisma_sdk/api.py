@@ -50,20 +50,24 @@ def create_conversation(token: str) -> int:
     return json["conversationId"]
 
 
-def set_memory(
-    token: str, memory_id_or_recall_value: Union[int, str], save_value: str
-) -> None:
-    body: Dict[str, Any] = {"saveValue": save_value}
-    if memory_id_or_recall_value is int:
-        body["memoryId"] = memory_id_or_recall_value
-    else:
-        body["memoryRecallValue"] = memory_id_or_recall_value
+def set_memory(token: str, recall_value: str, save_value: str) -> None:
+    body: Dict[str, Any] = {
+        "memories": [
+            {
+                "recallValue": recall_value,
+                "saveValue": save_value,
+            },
+        ]
+    }
 
-    requests.post(
+    response = requests.post(
         f"{base_url}/play/set-memory",
         json=body,
         headers={"Authorization": f"Bearer {token}"},
     )
+
+    if response.status_code != 200:
+        print("Set Memory Error: " + response.text)
 
 
 class MoodModifier(TypedDict, total=False):
